@@ -4,33 +4,23 @@ const main = async () => {
   await nftContract.deployed();
   console.log("Contract deployed to:", nftContract.address);
 
-  let txn = await nftContract.mint();
-  await txn.wait();
-  console.log("Minted NFT #1");
+  let txn;
 
-  txn = await nftContract.mint();
-  await txn.wait();
-  console.log("Minted NFT #2");
+  for (let index = 13; index < 26; index++) {
+    txn = await nftContract.mint(index);
+    await txn.wait();
+  }
 
-  txn = await nftContract.mint();
+  txn = await nftContract.mint(0);
   await txn.wait();
-  console.log("Minted NFT #3");
 
-  txn = await nftContract.mint();
+  txn = await nftContract.mintSet([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
   await txn.wait();
-  console.log("Minted NFT #4");
 
-  txn = await nftContract.mint();
-  await txn.wait();
-  console.log("Minted NFT #5");
-
-  txn = await nftContract.mint();
-  await txn.wait();
-  console.log("Minted NFT #6");
-
-  txn = await nftContract.mint();
-  await txn.wait();
-  console.log("Minted NFT #7");
+  for (let index = 0; index < 13; index++) {
+    txn = await nftContract.mint(index);
+    await txn.wait();
+  }
 };
 
 const runMain = async () => {
